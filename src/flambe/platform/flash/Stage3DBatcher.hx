@@ -182,10 +182,10 @@ class Stage3DBatcher
     public function prepareDrawTexture (renderTarget :Stage3DTextureRoot,
         blendMode :BlendMode, scissor :Rectangle, texture :Stage3DTexture) :Int
     {
-        if (texture != _lastTexture) {
+        if (_lastTexture == null || texture.root != _lastTexture.root) {
             flush();
-            _lastTexture = texture;
         }
+        _lastTexture = texture;
         return prepareQuad(5, renderTarget, blendMode, scissor, _drawTextureShader);
     }
 
@@ -199,6 +199,15 @@ class Stage3DBatcher
         }
         return prepareQuad(5, renderTarget, blendMode, scissor, _drawPatternShader);
     }
+    /*public function prepareDrawPattern (renderTarget :Stage3DTextureRoot,
+        blendMode :BlendMode, scissor :Rectangle, texture :Stage3DTexture) :Int
+    {
+        if (_lastTexture == null || texture.root != _lastTexture.root) {
+            flush();
+        }
+        _lastTexture = texture;
+        return prepareQuad(5, renderTarget, blendMode, scissor, _drawPatternShader);
+    }*/
 
     /** Adds a quad to the batch, using the FillRect shader. */
     public function prepareFillRect (renderTarget :Stage3DTextureRoot,

@@ -42,5 +42,9 @@ class DummyStorage
         _hash = new Map<String,Dynamic>();
     }
 
+    public function flush ()
+    {
+    }
+
     private var _hash :Map<String,Dynamic>;
 }

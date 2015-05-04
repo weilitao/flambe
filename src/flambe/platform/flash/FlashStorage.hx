@@ -67,5 +67,10 @@ class FlashStorage
         _so.clear();
     }
 
+    public function flush ()
+    {
+        _so.flush();
+    }
+
     private var _so :SharedObject;
 }

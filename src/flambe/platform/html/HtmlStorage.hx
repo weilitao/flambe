@@ -89,6 +89,10 @@ class HtmlStorage
         }
     }
 
+    public function flush ()
+    {
+    }
+
     // Prefix localStorage keys to prevent collisions with other JS on the page
     private static inline var PREFIX = "flambe:";
 

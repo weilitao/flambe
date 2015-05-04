@@ -33,4 +33,7 @@ interface StorageSystem
 
     /** Clears the entire storage contents. */
     function clear () :Void;
+
+    /** Flush the entire storage contents to disk. */
+    function flush () :Void;
 }

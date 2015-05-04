@@ -19,7 +19,7 @@ var HTTP_PORT = 7000;
 var SOCKET_PORT = HTTP_PORT+1;
 
 // The minimum SWF version for browser Flash. For AIR, we always use the latest
-var SWF_VERSION = "11.2";
+var SWF_VERSION = "12.5";
 
 exports.PLATFORMS = ["html", "flash", "android", "ios", "firefox"];
 
@@ -238,6 +238,9 @@ exports.build = function (config, platforms, opts) {
         var swf = "build/web/targets/main-flash.swf";
         var flashFlags = swfFlags(false).concat([
             "-swf-version", SWF_VERSION, "-swf", swf]);
+        //var swf = "build/web/targets/as3";
+        //var flashFlags = swfFlags(false).concat([
+        //    "-swf-version", SWF_VERSION, "-as3", swf]);
 
         return prepareWeb()
         .then(function () { return prepareAssets("build/web/assets") })
@@ -248,7 +251,7 @@ exports.build = function (config, platforms, opts) {
     };
 
     var buildAir = function (flags) {
-        var airFlags = swfFlags(true).concat(["-swf-version", "11.7", "-D", "air"]);
+        var airFlags = swfFlags(true).concat(["-swf-version", "12.5", "-D", "air"]);
 
         wrench.mkdirSyncRecursive(CACHE_DIR+"air");
         return prepareAssets(CACHE_DIR+"air/assets")
@@ -260,7 +263,7 @@ exports.build = function (config, platforms, opts) {
     var generateAirXml = function (swf, output) {
         var xmldom = require("xmldom");
         var xml =
-            "<application xmlns=\"http://ns.adobe.com/air/application/4.0\">\n" +
+            "<application xmlns=\"http://ns.adobe.com/air/application/17.0\">\n" +
             "  <id>"+get(config, "id")+"</id>\n" +
             "  <versionNumber>"+get(config, "version")+"</versionNumber>\n" +
             "  <filename>"+get(config, "name")+"</filename>\n" +
@@ -268,7 +271,7 @@ exports.build = function (config, platforms, opts) {
             "    <content>"+swf+"</content>\n" +
             "    <aspectRatio>"+get(config, "orientation", "portrait")+"</aspectRatio>\n" +
             "    <fullScreen>"+get(config, "fullscreen", "true")+"</fullScreen>\n" +
-            "    <autoOrients>true</autoOrients>\n" + // Enables 180 degree rotation
+            "    <autoOrients>false</autoOrients>\n" + // Enables 180 degree rotation
             "    <renderMode>direct</renderMode>\n" +
             "  </initialWindow>\n" +
             "  <android>\n" +
