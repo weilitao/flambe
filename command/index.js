@@ -19,7 +19,7 @@ var HTTP_PORT = 7000;
 var SOCKET_PORT = HTTP_PORT+1;
 
 // The minimum SWF version for browser Flash. For AIR, we always use the latest
-var SWF_VERSION = "12.5";
+var SWF_VERSION = "17.0";
 
 exports.PLATFORMS = ["html", "flash", "android", "ios", "firefox"];
 
@@ -238,9 +238,6 @@ exports.build = function (config, platforms, opts) {
         var swf = "build/web/targets/main-flash.swf";
         var flashFlags = swfFlags(false).concat([
             "-swf-version", SWF_VERSION, "-swf", swf]);
-        //var swf = "build/web/targets/as3";
-        //var flashFlags = swfFlags(false).concat([
-        //    "-swf-version", SWF_VERSION, "-as3", swf]);
 
         return prepareWeb()
         .then(function () { return prepareAssets("build/web/assets") })
@@ -251,7 +248,7 @@ exports.build = function (config, platforms, opts) {
     };
 
     var buildAir = function (flags) {
-        var airFlags = swfFlags(true).concat(["-swf-version", "12.5", "-D", "air"]);
+        var airFlags = swfFlags(true).concat(["-swf-version", "17.0", "-D", "air"]);
 
         wrench.mkdirSyncRecursive(CACHE_DIR+"air");
         return prepareAssets(CACHE_DIR+"air/assets")
